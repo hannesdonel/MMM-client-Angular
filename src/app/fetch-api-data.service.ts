@@ -22,7 +22,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}movies`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -34,7 +35,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}movies/?genre=${genreId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -46,7 +48,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}movies/?actor=${actor}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -58,7 +61,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}movies/${title}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -70,7 +74,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}genres`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -82,7 +87,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}genres/${name}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -94,7 +100,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}directors`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -106,7 +113,8 @@ class FetchApiService {
     return this.http.get(`${apiUrl}directors/${name}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
     );
@@ -126,7 +134,8 @@ class FetchApiService {
     return this.http.delete(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       catchError(this.handleError),
     );
   }
@@ -138,7 +147,9 @@ class FetchApiService {
     return this.http.get(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
+      map(this.extractResponseData),
       catchError(this.handleError),
     );
   }
@@ -150,16 +161,18 @@ class FetchApiService {
     return this.http.put(`${apiUrl}users/${userId}`, updateDetails, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
-        catchError(this.handleError),
-        );
-      }
+      })
+    }).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError),
+    );
+  }
       
   // Get favorite movies
   public getFavorites(): Observable<any> {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('user')
-   return this.http.get(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
+    return this.http.get(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })
@@ -176,7 +189,8 @@ class FetchApiService {
     return this.http.put(`${apiUrl}users/${userId}/favorites/${movieId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       catchError(this.handleError),
     );
   }
@@ -188,7 +202,8 @@ class FetchApiService {
     return this.http.delete(`${apiUrl}users/${userId}/favorites/${movieId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
-      })}).pipe(
+      })
+    }).pipe(
       catchError(this.handleError),
     );
   }
