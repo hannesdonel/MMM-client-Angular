@@ -121,6 +121,14 @@ class FetchApiService {
     );
   }
 
+  // User registration
+  public userRegistration(userDetails: any): Observable<any> {
+    return this.http.post(`${apiUrl}users`, userDetails).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError)
+      );
+    }
+    
   // Login
   public login(userDetails: any): Observable<any> {
     const response = this.http.post(`${apiUrl}login`, userDetails).pipe(
@@ -133,15 +141,7 @@ class FetchApiService {
     });
     return response
   }
-
-  // User registration
-  public userRegistration(userDetails: any): Observable<any> {
-    return this.http.post(`${apiUrl}users`, userDetails).pipe(
-      map(this.extractResponseData),
-      catchError(this.handleError)
-    );
-  }
-
+  
   // User deregistration
   public userDeregistration(): Observable<any> {
     const token = localStorage.getItem('token');
