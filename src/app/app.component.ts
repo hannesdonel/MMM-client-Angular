@@ -14,14 +14,10 @@ export class AppComponent {
   constructor(public dialog: MatDialog) { }
 
   openUserRegistrationDialog(): void {
-    this.dialog.open(UserRegistrationFormComponent, {
-    width: '40vw', maxWidth: '350px'
-    });
+    this.dialog.open(UserRegistrationFormComponent);
   }
 
   openLoginDialog(): void {
-    this.dialog.open(LoginFormComponent, {
-    width: '40vw', maxWidth: '350px'
-    });
+    this.dialog.open(LoginFormComponent);
   }
 }

@@ -35,5 +35,40 @@ $MMM-client-Angular-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%; 
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-width: 250px;
+}
+
+mat-dialog-container {
+  min-width: 200px;
+  width: 50vw !important;
+  max-width: 400px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-card-header-text {
+    margin: 0 0 12px !important;
+  }
+
+  mat-card-actions {
+    text-align: center;
+    
+    button {
+      width: 100%;
+      transition: 0.2s !important;
+  
+      &:hover {
+        transform: scale(1.025);
+      }
+    }
+  }
+}
