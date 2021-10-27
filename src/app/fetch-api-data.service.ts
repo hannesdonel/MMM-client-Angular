@@ -225,7 +225,6 @@ class FetchApiService {
 
   // Response handler
   private extractResponseData(res: any): any {
-      console.log('hello');
       const body = res;
       return body || { };
     }
