@@ -23,7 +23,16 @@ class LoginFormComponent implements OnInit {
   }
 
   userLogin(): void {
-
+    this.fetchApi.login(this.userData).subscribe((result) => {
+    this.dialogRef.close();
+    this.snackBar.open(result, 'OK', {
+      duration: 5000
+    });
+    }, (result) => {
+      this.snackBar.open(result, 'OK', {
+        duration: 5000
+      });
+    });
   }
 
 }
