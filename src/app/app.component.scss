@@ -1,0 +1,17 @@
+#main-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+button {
+    min-width: 100px;
+    transition: 0.2s;
+    margin: 0 5px;
+    
+    &:hover {
+        transform: scale(1.05);
+    }
+}
