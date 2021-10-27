@@ -121,6 +121,19 @@ class FetchApiService {
     );
   }
 
+  // Login
+  public login(userDetails: any): Observable<any> {
+    const response = this.http.post(`${apiUrl}login`, userDetails).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError)
+    );
+    response.subscribe((data: any): any => {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('username', data.user.user_name)
+    });
+    return response
+  }
+
   // User registration
   public userRegistration(userDetails: any): Observable<any> {
     return this.http.post(`${apiUrl}users`, userDetails).pipe(
