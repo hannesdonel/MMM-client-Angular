@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import FetchApiService from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-registration-form',
@@ -11,9 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
   
 class UserRegistrationFormComponent implements OnInit {
-
-  @Input() userData = { user_name: '', password: '', email: '', birth_date: '' };
-
   constructor(
     public fetchApi: FetchApiService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
@@ -23,8 +20,8 @@ class UserRegistrationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  registerUser(): void {
-    this.fetchApi.userRegistration(this.userData).subscribe((result) => {
+  registerUser(userData: NgForm): void {
+    this.fetchApi.userRegistration(userData.form.value).subscribe((result) => {
     this.dialogRef.close();
     this.snackBar.open(result, 'OK', {
       duration: 5000

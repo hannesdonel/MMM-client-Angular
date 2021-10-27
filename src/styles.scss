@@ -58,17 +58,13 @@ mat-dialog-container {
   .mat-card-header-text {
     margin: 0 0 12px !important;
   }
-
-  mat-card-actions {
-    text-align: center;
     
-    button {
-      width: 100%;
-      transition: 0.2s !important;
-  
-      &:hover {
-        transform: scale(1.025);
-      }
+  button {
+    width: 100%;
+    transition: 0.2s !important;
+
+    &:hover {
+      transform: scale(1.025);
     }
   }
 }
