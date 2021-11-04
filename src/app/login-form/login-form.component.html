@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<mat-card>
+<mat-card class="mat-app-background">
   <mat-card-header>
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm)">
-      <mat-form-field>
+      <mat-form-field *ngIf="!user || firstLogin">
         <input
           matInput
           ngModel
@@ -14,6 +14,7 @@
           type="text"
           pattern="[A-Za-z0-9_-]{1,}"
           name="user_name"
+          id="user_name"
           required
         />
         <mat-error *ngIf="user_name.invalid">
@@ -28,6 +29,7 @@
           type="password"
           placeholder="Password"
           name="password"
+          id="password"
           required
           minlength="8"
           maxlength="20"
@@ -39,9 +41,10 @@
       <button
         mat-raised-button
         color="primary"
-        [disabled]="!loginForm.form.valid"
+        [class.spinner]="loading"
+        [disabled]="!loginForm.form.valid || loading"
       >
-        Submit
+        <span *ngIf="!loading">Submit</span>
       </button>
     </form>
   </mat-card-content>

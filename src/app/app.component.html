@@ -1,15 +1,61 @@
-<div id="main-page">
-  <h1>Welcome to MORE MOVIE METADATA!</h1>
-  <div>
-    <button
-      mat-raised-button
-      (click)="openUserRegistrationDialog()"
-      color="primary"
-    >
-      Sign Up
-    </button>
-    <button mat-raised-button (click)="openLoginDialog()" color="primary">
-      Login
-    </button>
+<div
+  id="app__container"
+  class="mat-app-background"
+  [class.dark-theme-mode]="isDarkMode"
+>
+  <router-outlet></router-outlet>
+  <div id="loader__container" *ngIf="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
+  <mat-toolbar *ngIf="loggedIn">
+    <span (click)="toHome()">{{ dynamicTitle }}</span>
+    <div id="button__container">
+      <button
+        mat-icon-button
+        title="Home"
+        (click)="toHome()"
+        aria-label="Change user data"
+      >
+        <mat-icon *ngIf="!navigationHome">home</mat-icon>
+        <mat-icon color="accent" *ngIf="navigationHome">home</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        title="User account"
+        (click)="toUser()"
+        aria-label="Change user data"
+      >
+        <mat-icon *ngIf="!navigationUser">account_circle</mat-icon>
+        <mat-icon color="accent" *ngIf="navigationUser"
+          >account_circle</mat-icon
+        >
+      </button>
+      <button
+        mat-icon-button
+        title="Light mode"
+        *ngIf="isDarkMode"
+        (click)="switchTheme()"
+        aria-label="Theme switch"
+      >
+        <mat-icon>light_mode</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        title="Dark mode"
+        *ngIf="!isDarkMode"
+        (click)="switchTheme()"
+        aria-label="Theme switch"
+      >
+        <mat-icon>dark_mode</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        title="Logout"
+        (click)="logout()"
+        aria-label="Logout"
+      >
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
 </div>

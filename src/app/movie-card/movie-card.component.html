@@ -1,0 +1,222 @@
+<div id="movie-view__container" *ngIf="!app.loading && selectedMovie">
+  <mat-card id="movie-view">
+    <img
+      mat-card-image
+      src="{{ selectedMovie.image_url }}"
+      alt="{{ selectedMovie.title }}"
+    />
+    <div id="movie-view__info--container">
+      <mat-card-header>
+        <mat-card-title>{{ selectedMovie.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <span
+            *ngFor="let genre of selectedMovie.genre; let last = last"
+            (click)="genreDetails(selectedMovie.genre)"
+            class="genre"
+          >
+            <span *ngIf="!last">{{ genre.name }}, </span>
+            <span *ngIf="last">{{ genre.name }}</span>
+          </span>
+        </mat-card-subtitle>
+        <mat-card-subtitle
+          >Directed by:
+          <span
+            *ngFor="let directors of selectedMovie.director; let last = last"
+          >
+            <span
+              *ngIf="!last"
+              class="director"
+              (click)="directorDetails(directors.name)"
+              >{{ directors.name }},
+            </span>
+            <span
+              *ngIf="last"
+              class="director"
+              (click)="directorDetails(directors.name)"
+              >{{ directors.name }}</span
+            >
+          </span>
+        </mat-card-subtitle>
+        <mat-card-subtitle
+          >Starring:
+          <span *ngFor="let actor of selectedMovie.actors; let last = last">
+            <span *ngIf="!last">{{ actor }}, </span>
+            <span *ngIf="last">{{ actor }}</span>
+          </span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>Description:</h3>
+        {{ selectedMovie.description }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          id="back-button"
+          type="button"
+          color="primary"
+          (click)="app.toHome()"
+        >
+          Back
+        </button>
+        <mat-icon
+          *ngIf="!favorites.includes(selectedMovie._id)"
+          (click)="addFavorite(selectedMovie._id)"
+          color="warn"
+        >
+          favorite_border
+        </mat-icon>
+        <mat-icon
+          *ngIf="favorites.includes(selectedMovie._id)"
+          (click)="removeFavorite(selectedMovie._id)"
+          color="warn"
+        >
+          favorite
+        </mat-icon>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>
+<div id="all-movies" *ngIf="!selectedMovie">
+  <div id="filterBar" *ngIf="!app.loading">
+    <form id="search-bar">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Search for movie, director, artist or genre."
+          type="text"
+          name="search"
+          [(ngModel)]="searchString"
+          (input)="search()"
+        />
+      </mat-form-field>
+    </form>
+    <mat-slide-toggle
+      id="test"
+      title="Show favorites"
+      (change)="favoritesToggle()"
+      [ngModel]="showFavorites"
+    >
+      <mat-icon color="accent" *ngIf="!showFavorites">favorite_border</mat-icon>
+      <mat-icon color="accent" *ngIf="showFavorites">favorite</mat-icon>
+    </mat-slide-toggle>
+  </div>
+  <div id="movie-card-component__container" *ngIf="!app.loading">
+    <h3 *ngIf="nothingFound">Sorry, nothing found!</h3>
+    <mat-card class="movie-card" *ngFor="let movie of movies">
+      <mat-card-header>
+        <mat-card-title>{{ movie.title }}</mat-card-title>
+        <mat-card-subtitle
+          >Directed by:
+          <span *ngFor="let directors of movie.director; let last = last">
+            <span
+              *ngIf="!last"
+              class="director"
+              (click)="directorDetails(directors.name)"
+              >{{ directors.name }},
+            </span>
+            <span
+              *ngIf="last"
+              class="director"
+              (click)="directorDetails(directors.name)"
+              >{{ directors.name }}</span
+            >
+          </span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img
+        mat-card-image
+        (click)="showMovieDetails(movie.title)"
+        src="{{ movie.image_url }}"
+        alt="{{ movie.title }}"
+      />
+      <mat-card-actions>
+        <button mat-button (click)="genreDetails(movie.genre)" color="primary">
+          Genres
+        </button>
+        <button
+          mat-button
+          (click)="actorsDetails(movie.actors)"
+          color="primary"
+        >
+          Actors
+        </button>
+        <button
+          mat-button
+          (click)="synopsisDetails(movie.description)"
+          color="primary"
+        >
+          Synopsis
+        </button>
+        <mat-icon
+          *ngIf="!favorites.includes(movie._id)"
+          (click)="addFavorite(movie._id)"
+          color="warn"
+        >
+          favorite_border
+        </mat-icon>
+        <mat-icon
+          *ngIf="favorites.includes(movie._id)"
+          (click)="removeFavorite(movie._id)"
+          color="warn"
+        >
+          favorite
+        </mat-icon>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div id="function-buttons">
+    <button
+      mat-raised-button
+      type="button"
+      title="Filter"
+      id="filter-button"
+      [matMenuTriggerFor]="filterMenu"
+    >
+      <mat-icon *ngIf="!(genreFilter || directorFilter)" color="primary"
+        >filter_alt</mat-icon
+      >
+      <mat-icon *ngIf="genreFilter || directorFilter" color="accent"
+        >filter_alt</mat-icon
+      >
+    </button>
+    <mat-menu mat-app-background #filterMenu="matMenu">
+      <div id="filter-list-container" [class.white-menu-font]="app.isDarkMode">
+        <ul>
+          <h3>Genres</h3>
+          <li *ngFor="let genre of genres; let i = index">
+            <mat-checkbox
+              [checked]="selectedGenre === i"
+              (change)="selectedGenre = i; filter({ genreName: genre.name })"
+            >
+              {{ genre.name }}
+            </mat-checkbox>
+          </li>
+        </ul>
+        <ul>
+          <h3>Directors</h3>
+          <li *ngFor="let director of directors; let i = index">
+            <mat-checkbox
+              [checked]="selectedDirector === i"
+              (change)="
+                selectedDirector = i; filter({ directorName: director.name })
+              "
+            >
+              {{ director.name }}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </div>
+    </mat-menu>
+    <button
+      mat-raised-button
+      *ngIf="scrolled"
+      type="button"
+      title="To top"
+      id="toTop-button"
+      (click)="toTop()"
+    >
+      <mat-icon color="primary">arrow_upward</mat-icon>
+    </button>
+  </div>
+</div>

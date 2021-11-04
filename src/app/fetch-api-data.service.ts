@@ -3,8 +3,6 @@ import { catchError } from 'rxjs/internal/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ElementSchemaRegistry } from '@angular/compiler';
-
 
 // API URL
 const apiUrl = 'https://more-movie-metadata.herokuapp.com/';
@@ -131,26 +129,22 @@ class FetchApiService {
     
   // Login
   public login(userDetails: any): Observable<any> {
-    const response = this.http.post(`${apiUrl}login`, userDetails).pipe(
+    return this.http.post(`${apiUrl}login`, userDetails).pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
-    );
-    response.subscribe((data: any): any => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', data.user.user_name)
-    });
-    return response
-  }
-  
-  // User deregistration
-  public userDeregistration(): Observable<any> {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user')
-    return this.http.delete(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
-      {
-        Authorization: 'Bearer ' + token,
-      })
-    }).pipe(
+      );
+    }
+    
+    // User deregistration
+    public userDeregistration(): Observable<any> {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('id');
+      return this.http.delete(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })
+      }).pipe(
+      map(this.extractResponseData),
       catchError(this.handleError),
     );
   }
@@ -158,7 +152,7 @@ class FetchApiService {
   // Get user information
   public getUserData(): Observable<any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user')
+    const userId = localStorage.getItem('id');
     return this.http.get(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
@@ -172,7 +166,7 @@ class FetchApiService {
   // Update user information
   public updateUserData(updateDetails: any): Observable<any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user')
+    const userId = localStorage.getItem('id');
     return this.http.put(`${apiUrl}users/${userId}`, updateDetails, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
@@ -186,7 +180,7 @@ class FetchApiService {
   // Get favorite movies
   public getFavorites(): Observable<any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user')
+    const userId = localStorage.getItem('id');
     return this.http.get(`${apiUrl}users/${userId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
@@ -200,12 +194,13 @@ class FetchApiService {
   // Add movie to favorites
   public addFavorite(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user')
-    return this.http.put(`${apiUrl}users/${userId}/favorites/${movieId}`, {headers: new HttpHeaders(
+    const userId = localStorage.getItem('id');
+    return this.http.put(`${apiUrl}users/${userId}/favorites/${movieId}`, {}, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,
       })
     }).pipe(
+      map(this.extractResponseData),
       catchError(this.handleError),
     );
   }
@@ -213,7 +208,7 @@ class FetchApiService {
   // Remove movie to favorites
   public removeFavorite(movieId: any): Observable<any> {
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user')
+    const userId = localStorage.getItem('id');
     return this.http.delete(`${apiUrl}users/${userId}/favorites/${movieId}`, {headers: new HttpHeaders(
       {
         Authorization: 'Bearer ' + token,

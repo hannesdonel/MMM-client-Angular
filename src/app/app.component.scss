@@ -1,18 +1,35 @@
-#main-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 100vh;
+@import "../general-style.scss";
+
+#loader__container {
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
 }
 
-button {
-    min-width: 100px;
-    margin: 0 5px;
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  z-index: 98;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.26);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideInDown 0.3s backwards ease-out;
+
+  button {
+    margin: 0 !important;
     transition: 0.2s;
 
     &:hover {
-        transform: scale(1.05);
+      transform: scale(1.15);
     }
+  }
+
+  span:hover {
+    cursor: pointer;
+  }
 }

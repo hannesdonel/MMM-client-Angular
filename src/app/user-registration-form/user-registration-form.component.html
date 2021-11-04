@@ -5,71 +5,115 @@
   </mat-card-header>
   <mat-card-content>
     <form
-      #registrationForm="ngForm"
-      (ngSubmit)="registerUser(registrationForm)"
+      [formGroup]="userDataForm"
+      (ngSubmit)="registerUser()"
+      id="user-data__container"
     >
       <mat-form-field>
         <input
           matInput
-          ngModel
-          #user_name="ngModel"
+          id="user_name"
           placeholder="Username"
           type="text"
-          pattern="[A-Za-z0-9_-]{1,}"
-          name="user_name"
-          required
+          formControlName="user_name"
         />
-        <mat-error *ngIf="user_name.invalid">
-          Please use alphanumeric characters only.
+        <mat-error
+          *ngIf="user_name.invalid && (user_name.dirty || user_name.touched)"
+        >
+          <span *ngIf="user_name.errors?.required">
+            Please enter a username.
+          </span>
+          <span *ngIf="user_name.errors?.pattern">
+            Please use alphanumeric characters only.
+          </span>
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input
           matInput
-          ngModel
-          #password="ngModel"
+          id="password"
           type="password"
           placeholder="Password"
-          name="password"
-          required
+          formControlName="password"
           minlength="8"
           maxlength="20"
         />
-        <mat-error *ngIf="password.invalid">
-          Your password must be 8-20 characters long.
+        <mat-error
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+        >
+          <span *ngIf="password.errors?.minlength"
+            >Your password should at least have 8 characters.</span
+          >
+          <span *ngIf="password.errors?.required"
+            >Please enter a password.</span
+          >
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input
           matInput
-          ngModel
-          #email="ngModel"
+          id="passwordCheck"
+          type="password"
+          placeholder="Repeat your password"
+          formControlName="passwordCheck"
+          (change)="passwordCheckValidator()"
+        />
+        <mat-error
+          *ngIf="
+            passwordCheck.invalid &&
+            (passwordCheck.dirty || passwordCheck.touched)
+          "
+        >
+          <span *ngIf="passwordCheck.errors?.required"
+            >Please retype your password.</span
+          >
+          <span
+            *ngIf="
+              passwordCheck.errors?.passwordCheck &&
+              !passwordCheck.errors?.required
+            "
+            >Your passwords aren't matching.</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          id="email"
           type="email"
           placeholder="your@mail.com"
-          name="email"
-          required
-          email
+          formControlName="email"
         />
-        <mat-error *ngIf="email.invalid">
-          This is not a valid mail adress.
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors?.required"
+            >Please enter an email adress.</span
+          >
+          <span *ngIf="email.errors?.email"
+            >This is not a valid mail adress.</span
+          >
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input
           matInput
-          ngModel
+          id="birth_date"
           type="date"
-          placeholder="Birthday"
-          name="birth_date"
+          formControlName="birth_date"
           required
         />
+        <mat-error
+          *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)"
+          >Please enter your birthday.</mat-error
+        >
       </mat-form-field>
       <button
         mat-raised-button
         color="primary"
-        [disabled]="!registrationForm.form.valid"
+        [class.spinner]="loading"
+        [disabled]="userDataForm.invalid"
+        type="submit"
       >
-        Sign Up
+        <span *ngIf="!loading">Sign up</span>
       </button>
     </form>
   </mat-card-content>

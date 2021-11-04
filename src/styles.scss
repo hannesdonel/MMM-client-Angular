@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '~@angular/material' as mat;
+@use "~@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -12,43 +11,103 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$MMM-client-Angular-primary: mat.define-palette(mat.$indigo-palette);
-$MMM-client-Angular-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
-// The warn palette is optional (defaults to red).
+// Light Theme
+$MMM-client-Angular-primary: mat.define-palette(mat.$blue-grey-palette);
+$MMM-client-Angular-accent: mat.define-palette(
+  mat.$pink-palette,
+  A200,
+  A100,
+  A400
+);
 $MMM-client-Angular-warn: mat.define-palette(mat.$red-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$MMM-client-Angular-theme: mat.define-light-theme((
-  color: (
-    primary: $MMM-client-Angular-primary,
-    accent: $MMM-client-Angular-accent,
-    warn: $MMM-client-Angular-warn,
+$MMM-client-Angular-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $MMM-client-Angular-primary,
+      accent: $MMM-client-Angular-accent,
+      warn: $MMM-client-Angular-warn,
+    ),
   )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
+);
 @include mat.all-component-themes($MMM-client-Angular-theme);
+
+// Dark Theme
+$MMM-client-Angular-primary-dark: mat.define-palette(mat.$grey-palette);
+$MMM-client-Angular-accent-dark: mat.define-palette(mat.$deep-orange-palette);
+$MMM-client-Angular-warn-dark: mat.define-palette(mat.$red-palette);
+
+$MMM-client-Angular-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $MMM-client-Angular-primary-dark,
+      accent: $MMM-client-Angular-accent-dark,
+      warn: $MMM-client-Angular-warn-dark,
+    ),
+  )
+);
+.dark-theme-mode {
+  @include mat.all-component-themes($MMM-client-Angular-dark-theme);
+}
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
-  height: 100%; 
+@import "./general-style.scss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+#app__container {
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(60px + max(2%, 10px)) max(2%, 10px) max(2%, 10px);
+}
+
+app-movie-card,
+app-user-data {
   min-width: 250px;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 100%;
+}
+
+app-welcome-page {
+  padding-top: calc(- 60px - max(2%, 10px));
+  width: 100%;
+}
+
+app-movie-card {
+  width: unset;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 250px;
+  max-width: 1200px;
+  width: 100%;
+  min-height: 100%;
 }
 
 mat-dialog-container {
   min-width: 200px;
   width: 50vw !important;
   max-width: 400px;
+  padding: 0 !important;
+
+  @include md {
+    padding: 24px !important;
+  }
 
   form {
     display: flex;
@@ -58,14 +117,41 @@ mat-dialog-container {
   .mat-card-header-text {
     margin: 0 0 12px !important;
   }
-    
-  button {
-    width: 100%;
-    transition: 0.2s !important;
-    margin-top: 10px !important;
+}
 
-    &:hover {
-      transform: scale(1.025);
-    }
+button {
+  min-width: 100px;
+  margin: 10px 5px 0 !important;
+  height: 37px;
+  transition: 0.2s !important;
+
+  &:hover {
+    transform: scale(1.025);
   }
+}
+
+.mat-slide-toggle-content {
+  display: flex;
+  align-items: center;
+}
+
+simple-snack-bar {
+  button {
+    margin: 0 !important;
+  }
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.mat-card-actions {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.mat-menu-panel {
+  max-width: unset !important;
 }
