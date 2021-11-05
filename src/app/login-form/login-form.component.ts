@@ -61,8 +61,10 @@ class LoginFormComponent implements OnInit {
         localStorage.setItem('username', result.user.user_name);
         localStorage.setItem('id', result.user._id)
         this.snackBar.open(message, 'OK', { duration: 5000 });
-        this.router.navigate(['loggedIn']);
+        const redirectURL = localStorage.getItem('redirectURL') || '';
+        this.router.navigate([redirectURL]);
         localStorage.removeItem('firstLogin');
+        localStorage.removeItem('redirectURL');
         this.loading = false;
       },
       // On error

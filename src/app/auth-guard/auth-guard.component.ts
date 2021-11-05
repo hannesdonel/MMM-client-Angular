@@ -25,11 +25,12 @@ export class AuthGuard implements CanActivate {
         const check: Boolean = await checkUserData();
 
         if (check) {
-            // user logged in and user data validd
+            // user logged in and user data valid
             return true
         } else {
             // user data not valid or user is not logged in => new login
             localStorage.clear();
+            localStorage.setItem('redirectURL', state.url);
             this.router.navigate(['/welcome']);
             return false
         }
