@@ -173,8 +173,8 @@
 
 #function-buttons {
   position: fixed;
-  bottom: 32px;
-  right: 32px;
+  bottom: max(2%, 10px);
+  right: max(2%, 10px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

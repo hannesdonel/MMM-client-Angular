@@ -62,6 +62,7 @@ class LoginFormComponent implements OnInit {
         localStorage.setItem('id', result.user._id)
         this.snackBar.open(message, 'OK', { duration: 5000 });
         const redirectURL = localStorage.getItem('redirectURL') || '/movies';
+        console.log(redirectURL);
         this.router.navigate([redirectURL]);
         localStorage.removeItem('firstLogin');
         localStorage.removeItem('redirectURL');
