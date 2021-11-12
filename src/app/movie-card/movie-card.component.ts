@@ -28,6 +28,9 @@ class MovieCardComponent implements OnInit {
   public genreFilter: any = ''
   public directorFilter: any = ''
   public scrolled: Boolean = false
+  showFavorites: Boolean = false
+  selectedMovie: any = false
+  searchString: String = ''
     
   constructor(
     private fetchApi: FetchApiService,
@@ -37,10 +40,6 @@ class MovieCardComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
   ) { }
-
-  showFavorites: Boolean = false
-  selectedMovie: any = false
-  searchString: String = ''
 
   async ngOnInit() {
     localStorage.removeItem('genreFilter');
@@ -277,7 +276,9 @@ class MovieCardComponent implements OnInit {
         if (index > -1) {
           this.favorites.splice(index, 1);
         };
-        this.movies = this.allMovies.filter((movie) => this.favorites.includes(movie._id));
+        if (this.showFavorites) {
+          this.movies = this.allMovies.filter((movie) => this.favorites.includes(movie._id));
+        };
       },
       () => this.snackBar.open('Something went wrong.', 'OK', { duration: 3000 })
     );
