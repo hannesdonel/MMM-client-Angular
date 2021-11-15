@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --port 8080",
+    "build": "ng build --base-href https://hannesdonel.github.io/MMM-client-Angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
