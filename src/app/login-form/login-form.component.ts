@@ -20,16 +20,16 @@ class LoginFormComponent implements OnInit {
     public router: Router,
   ) { }
 
+  /** Initiates the form of username and password to login. */
   @ViewChild('loginForm', {static: true}) loginForm!: NgForm;
 
+  /** Activates loading spinner within the SUBMIT button. */
   loading: boolean = false
-  user: String = ''
-  firstLogin: String = ''
+  /** If there's a user in localStorage this variable will be set with username. */
+  user: string = ''
+  /** If user logs in for the first time ever this variable gets stored in localStorage to then prompt a unique welcome message. */
+  firstLogin: string = ''
 
-  setUsername = (): void => {
-    this.loginForm.setValue({ user_name: this.user, password: '' })
-  }
-  
   ngOnInit(): void {
     this.user = localStorage.getItem('username') || '';
     this.firstLogin = localStorage.getItem('firstLogin') || '';
@@ -38,20 +38,32 @@ class LoginFormComponent implements OnInit {
       setTimeout(() => document.getElementById('password')?.focus(), 200)
     }
   }
-
-  userLogin(userData: NgForm): void {
+  
+  /** Prefills the username input field on first login after signup. */
+  setUsername = (): void => {
+    this.loginForm.setValue({ user_name: this.user, password: '' })
+  }
+  
+  /** Handles login after SUBMIT click.
+   * 
+   * @param {NgForm} userData This is data passed from login form.
+  */
+  userLogin = (userData: NgForm): void => {
+    this.loading = true;
     let loginData = userData.form.value;
 
+    // Set username if there's one in localstorage.
     if (this.user) {
       loginData = {
         user_name: this.user,
         password: userData.form.value.password
       }
     }
-    this.loading = true;
+
+    // Send data to server
     this.fetchApi.login(loginData).subscribe(
       // On success
-      (result) => {
+      (result: any) => {
         let message = `Welcome back ${result.user.user_name}, you successfully logged in.`
         if (this.firstLogin) {
           message = `Welcome ${result.user.user_name}, you successfully logged in. Nice to have you here, take a look around.`
@@ -69,7 +81,7 @@ class LoginFormComponent implements OnInit {
         this.loading = false;
       },
       // On error
-      (result) => {
+      (result: any) => {
         const message = `${result.message} Try again.`
         this.snackBar.open(message, 'OK', { duration: 5000 });
         localStorage.clear();

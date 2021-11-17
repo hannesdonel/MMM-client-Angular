@@ -51,6 +51,7 @@
     "stylelint": "^14.0.1",
     "stylelint-config-recommended-scss": "^5.0.0",
     "stylelint-scss": "^4.0.0",
+    "typedoc": "^0.22.9",
     "typescript": "~4.3.5"
   }
 }

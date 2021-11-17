@@ -15,10 +15,11 @@ class WelcomePageComponent implements OnInit {
     private app: AppComponent
   ) { }
   
-  user = localStorage.getItem('username')
-  firstLogin = localStorage.getItem('firstLogin')
+  user: string | null = localStorage.getItem('username')
+  /** Only gets set when it's the first login after sign up. */
+  firstLogin: string | null = localStorage.getItem('firstLogin')
 
-  ngOnInit(): any {
+  ngOnInit(): void {
     this.app.setLoggedIn(false);
   }
 

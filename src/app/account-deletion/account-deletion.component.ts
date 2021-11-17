@@ -20,12 +20,23 @@ export class AccountDeletionComponent implements OnInit {
     private router: Router
   ) { }
   
+  /** Input field where a user types DELETE to activate the deletion process. */
   @ViewChild('doubleCheckInput', {static: true}) doubleCheckInput!: NgForm;
-    
-  loading: Boolean = false
-  showDelete: Boolean = false
+  
+  /** Activates loading spinner within the DELETE button. */
+  loading: boolean = false
+  /** Determines if DELETE button is shown or not. */
+  showDelete: boolean = false
 
-  doubleCheck = (value: String): void => {
+  ngOnInit(): void {
+    this.doubleCheckInput.form.valueChanges.subscribe((value) => this.doubleCheck(value.input));
+  }
+
+  /** Check if the users input is valid. If so, the deletion button will be shown.
+   * 
+   * @param value String to check.
+   */
+  doubleCheck = (value: string): void => {
     if (value === 'DELETE') {
       this.showDelete = true;
     } else {
@@ -33,10 +44,7 @@ export class AccountDeletionComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.doubleCheckInput.form.valueChanges.subscribe((value) => this.doubleCheck(value.input));
-  }
-
+  /** This function deletes the account. */
   deleteAccount = (): void => {
     this.loading = true;
     this.fetchApi.userDeregistration().subscribe(() => {
@@ -50,5 +58,4 @@ export class AccountDeletionComponent implements OnInit {
       this.loading = false;
     })
   }
-
 }

@@ -8,19 +8,28 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GenreComponent implements OnInit {
 
+  /** Data that gets passed to this dialog on opening it. */
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      genreNames: String[],
-      genres: Object[]  
+      genreNames: Array<string>,
+      genres: Array<object>  
     }
   ) { }
 
-  selectedGenres: any = []
+  /** Genres that will be handed to template. */
+  selectedGenres: any[] = []
 
   ngOnInit(): void {
-    this.data.genreNames.forEach((genreName: String) =>
-    this.selectedGenres.push(this.data.genres.find((genre: any) =>
-    genre.name === genreName)))
+    this.setGenres();
+  }
+
+  /** Compares the given genre to all genres and sets the selected genre. */
+  setGenres = (): void => {
+    this.data.genreNames.forEach((genreName: string) =>
+      this.selectedGenres.push(this.data.genres.find((genre: { name?: string }) =>
+        genre.name === genreName
+      ))
+    );
   }
 }

@@ -11,7 +11,7 @@ const apiUrl = 'https://more-movie-metadata.herokuapp.com/';
   providedIn: 'root',
 })
   
-// API calls
+/** This component bundles all API calls that are necessary for the app to run. */
 class FetchApiService {
   constructor(private http: HttpClient) { }
 

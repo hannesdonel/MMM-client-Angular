@@ -21,6 +21,11 @@
       "dom"
     ]
   },
+  "typedocOptions": {
+    "name": "MMM client Angular - documentation",
+    "entryPoints": ["src/index.html"],
+    "out": "docs"
+  },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
