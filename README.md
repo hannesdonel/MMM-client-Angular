@@ -65,3 +65,7 @@ Run `ng serve` or `npm start`for a dev server. Navigate to `http://localhost:808
 #### Build
 
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. The base-href is set to https://hannesdonel.github.io/MMM-client-Angular/.
+
+#### Documentation
+
+A detailed documentation of the codebase is located in /docs directory.
