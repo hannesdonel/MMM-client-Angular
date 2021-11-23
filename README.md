@@ -1,27 +1,67 @@
-# MMMClientAngular
+# MORE MOVIE METADATA - Angular Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.11.
+Welcome to the Angular user client for my <a href="https://github.com/hannesdonel/MMM">MORE MOVIE METADATA API</a>. This fully responsive single page application will provide you graphically appealing with access to information about different movies, directors, and genres stored on a MongoDB database. The design is following the <a href="https://material.io/">Material Design Guidelines</a> from Google.
+It's possible to sign up to create a unique list of favorite movies.
 
-## Development server
+<a href="https://hannesdonel.github.io/MMM-client-Angular/">Use the app.</a>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<img src="./assets/example1.png" alt="Example Image 1" width="100%">
+<img src="./assets/example2.png" alt="Example Image 2" width="100%">
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies
 
-## Build
+- TypeScript, HTML, SCSS
+- Angular
+    - light and dark mode using Angular's color palettes
+    - template and reactive forms with comprehensive validation
+- RxJS
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Functionality
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Registration
+- Allows new users to register (username, password, email, birthday)
 
-## Running end-to-end tests
+#### Login
+- Log in with a username and password
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+#### Main
+- Returns a list of all movies (each listed item with an image, title, genres, directors, actors and
+description)
+- Sorting and filtering
+- Ability to select a movie for more details
 
-## Further help
+#### Single movie
+- Returns data (description, genres, directors, actors, image) about a single movie
+- Add or remove movie to list of favorites
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### Genres and directors
+- Returns data about a genre or director, with a name and description/bio
+- Displays example movies
+
+#### Profile
+- Update user info (username, password, email, date of birth)
+- User derigistration
+- Display and alter list of favorite movies
+
+#### Single movie and all movies
+- Allow users to see which actors star in which movies
+
+
+## Get started
+
+I'm using npm throughout this tutorial, you can of course use another package manager.
+
+#### Prerequisites
+- Node.js
+
+        npm install node@lts
+
+#### Development server
+
+Run `ng serve` or `npm start`for a dev server. Navigate to `http://localhost:8080/`. The app will automatically reload if you change any of the source files.
+
+#### Build
+
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. The base-href is set to https://hannesdonel.github.io/MMM-client-Angular/.
