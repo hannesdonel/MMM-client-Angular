@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<mat-card *ngFor="let genre of selectedGenres">
-  <mat-card-header>
-    <mat-card-title>{{ genre.name }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>{{ genre.description }}</mat-card-content>
-</mat-card>
+<mat-dialog-content>
+  <mat-card *ngFor="let genre of selectedGenres">
+    <mat-card-header>
+      <mat-card-title>{{ genre.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>{{ genre.description }}</mat-card-content>
+  </mat-card>
+</mat-dialog-content>

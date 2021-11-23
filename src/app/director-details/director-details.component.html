@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>About {{ data.name }}</mat-card-title>
-    <mat-card-subtitle *ngIf="data.birthYear"
-      >Born: {{ data.birthYear }}</mat-card-subtitle
-    >
-    <mat-card-subtitle *ngIf="data.deathYear"
-      >Died: {{ data.deathYear }}</mat-card-subtitle
-    >
-  </mat-card-header>
-  <mat-card-content>
-    {{ data.description }}
-  </mat-card-content>
-</mat-card>
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>About {{ data.name }}</mat-card-title>
+      <mat-card-subtitle *ngIf="data.birthYear"
+        >Born: {{ data.birthYear }}</mat-card-subtitle
+      >
+      <mat-card-subtitle *ngIf="data.deathYear"
+        >Died: {{ data.deathYear }}</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      {{ data.description }}
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

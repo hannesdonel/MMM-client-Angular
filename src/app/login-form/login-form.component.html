@@ -1,51 +1,53 @@
 <!DOCTYPE html>
-<mat-card class="mat-app-background">
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm)">
-      <mat-form-field *ngIf="!user || firstLogin">
-        <input
-          matInput
-          ngModel
-          #user_name="ngModel"
-          placeholder="Username"
-          type="text"
-          pattern="[A-Za-z0-9_-]{1,}"
-          name="user_name"
-          id="user_name"
-          required
-        />
-        <mat-error *ngIf="user_name.invalid">
-          Please use alphanumeric characters only.
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          ngModel
-          #password="ngModel"
-          type="password"
-          placeholder="Password"
-          name="password"
-          id="password"
-          required
-          minlength="8"
-          maxlength="20"
-        />
-        <mat-error *ngIf="password.invalid">
-          Your password must be 8-20 characters long.
-        </mat-error>
-      </mat-form-field>
-      <button
-        mat-raised-button
-        color="primary"
-        [class.spinner]="loading"
-        [disabled]="!loginForm.form.valid || loading"
-      >
-        <span *ngIf="!loading">Submit</span>
-      </button>
-    </form>
-  </mat-card-content>
-</mat-card>
+<mat-dialog-content>
+  <mat-card class="mat-app-background">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="userLogin(loginForm)">
+        <mat-form-field *ngIf="!user || firstLogin">
+          <input
+            matInput
+            ngModel
+            #user_name="ngModel"
+            placeholder="Username"
+            type="text"
+            pattern="[A-Za-z0-9_-]{1,}"
+            name="user_name"
+            id="user_name"
+            required
+          />
+          <mat-error *ngIf="user_name.invalid">
+            Please use alphanumeric characters only.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            ngModel
+            #password="ngModel"
+            type="password"
+            placeholder="Password"
+            name="password"
+            id="password"
+            required
+            minlength="8"
+            maxlength="20"
+          />
+          <mat-error *ngIf="password.invalid">
+            Your password must be 8-20 characters long.
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          [class.spinner]="loading"
+          [disabled]="!loginForm.form.valid || loading"
+        >
+          <span *ngIf="!loading">Submit</span>
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
