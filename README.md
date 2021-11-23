@@ -42,7 +42,7 @@ description)
 
 #### Profile
 - Update user info (username, password, email, date of birth)
-- User derigistration
+- User deregistration
 - Display and alter list of favorite movies
 
 #### Single movie and all movies
